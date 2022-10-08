@@ -1,0 +1,22 @@
+description: >
+  Notify a Slack Channel that a deployment successfully finished
+
+parameters:
+  project:
+    type: string
+    description: The deployed project name
+  environment:
+    type: string
+    description: The environment where the project has been deployed
+  url:
+    type: string
+    description: The URL to view the environment
+steps:
+  - slack/notify:
+      name: Notify Slack
+      event: pass
+      environment:
+        PARAM_PROJECT: <<parameters.project>>
+        PARAM_ENVIRONMENT: <<parameters.environment>>
+        PARAM_URL: <<parameters.url>>
+      custom: <<include(slack-templates/deploy.json)>>
