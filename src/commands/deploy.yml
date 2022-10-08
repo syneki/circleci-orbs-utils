@@ -1,8 +1,5 @@
 description: >
-  Sample description
-# What will this job do?
-
-executor: default
+  This command login to Pulumi, update a stack, and send a Slack Notification.
 
 parameters:
   working_directory:
@@ -24,11 +21,14 @@ parameters:
     type: string
     description: "Config path to set the image version"
     default: config.app.version
-environment:
-  PARAM_PROJECT: << parameters.project >>
-  PARAM_ENVIRONMENT: << parameters.environment >>
-  PARAM_URL: << parameters.url >>
 steps:
+  - run:
+      name: Setup environment variables
+      environment:
+        PARAM_URL: << parameters.url >>
+        PARAM_PROJECT: << parameters.project >>
+        PARAM_ENVIRONMENT: << parameters.environment >>
+      command: << include(scripts/setup-deploy-env.sh) >>
   - pulumi/login
   - run:
       name: Set image version
