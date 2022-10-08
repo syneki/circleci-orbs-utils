@@ -1,14 +1,59 @@
 {
-  "blocks": [
-    {
-      "type": "section",
-      "fields": [
-        {
-          "type": "plain_text",
-          "text": "*This is a text notification* $PARAM_PROJECT $PARAM_URL",
-          "emoji": true
-        }
-      ]
-    }
-  ]
+	"blocks": [
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": "Deployment Successful! :tada:",
+				"emoji": true
+			}
+		},
+		{
+			"type": "section",
+			"fields": [
+				{
+					"type": "mrkdwn",
+					"text": "*Project*: $PARAM_PROJECT"
+				},
+                {
+					"type": "mrkdwn",
+					"text": "*Version*: $CIRCLE_TAG"
+				},
+                {
+					"type": "mrkdwn",
+					"text": "*Environment*: $PARAM_ENVIRONMENT"
+				},
+				{
+					"type": "mrkdwn",
+					"text": "*When*: $(date +'%m/%d/%Y %T')"
+				}
+			],
+			"accessory": {
+				"type": "image",
+				"image_url": "https://syneki.s3.eu-west-3.amazonaws.com/logo/curve.png",
+				"alt_text": "Syneki logo"
+			}
+		},
+		{
+			"type": "actions",
+			"elements": [
+                {
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "View deployment"
+					},
+					"url": "${PARAM_URL}"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "View Job"
+					},
+					"url": "${CIRCLE_BUILD_URL}"
+				}
+			]
+		}
+	]
 }
