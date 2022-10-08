@@ -17,7 +17,7 @@
 				},
                 {
 					"type": "mrkdwn",
-					"text": "*Version*: $CIRCLE_TAG"
+					"text": "*Version*: $PARAM_VERSION"
 				},
                 {
 					"type": "mrkdwn",

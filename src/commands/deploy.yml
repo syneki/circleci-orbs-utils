@@ -28,6 +28,7 @@ steps:
         echo 'export PARAM_PROJECT="<< parameters.project >>"' >> "$BASH_ENV"
         echo 'export PARAM_ENVIRONMENT="<< parameters.environment >>"' >> "$BASH_ENV"
         echo 'export PARAM_URL="<< parameters.url >>"' >> "$BASH_ENV"
+        echo 'export PARAM_VERSION="$(echo "$CIRCLE_TAG" | grep -o 'v[0-9]\+.[0-9]\+.[0-9]\+')"' >> "$BASH_ENV"
   - pulumi/login
   - run:
       name: Set image version
