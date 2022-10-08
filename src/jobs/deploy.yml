@@ -14,6 +14,16 @@ parameters:
   stack:
     type: string
     description: "The Pulumi Stack name (<organization>/<stack>)"
+  project:
+    type: string
+    description: "The deployed project name"
+  url:
+    type: string
+    description: "The deployed project URL"
+environment:
+  PARAM_PROJECT: << parameters.project >>
+  PARAM_ENVIRONMENT: << parameters.stack >>
+  PARAM_URL: << parameters.url >>
 steps:
   - pulumi/login
   - pulumi/update:
