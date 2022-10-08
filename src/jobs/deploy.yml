@@ -1,0 +1,24 @@
+description: >
+  Sample description
+# What will this job do?
+
+executor: default
+
+parameters:
+  working_directory:
+    type: string
+    description: "Directory where the Pulumi project is located"
+  organization:
+    type: string
+    description: "The Pulumi Organization name (<organization>/<stack>)"
+  stack:
+    type: string
+    description: "The Pulumi Stack name (<organization>/<stack>)"
+steps:
+  - pulumi/login
+  - pulumi/update:
+      stack: << parameters.organization >>/<< parameters.stack >>
+      working_directory: << parameters.working_directory >>
+  - slack/notify:
+      event: pass
+      custom: << include(slack-templates/deploy.json) >>

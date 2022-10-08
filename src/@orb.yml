@@ -12,3 +12,4 @@ display:
 
 orbs:
   slack: circleci/slack@4.10.1
+  pulumi: pulumi/pulumi@2.1.0
