@@ -1,0 +1,21 @@
+description: >
+  Sample description
+# What will this job do?
+
+executor: default
+
+parameters:
+  environment:
+    type: string
+    description: "The Pulumi Stack name (<organization>/<environment>)"
+  project:
+    type: string
+    description: "The deployed project name"
+  url:
+    type: string
+    description: "The deployed project URL"
+steps:
+  - on-hold:
+      environment: <<parameters.environment>>
+      project: <<parameters.project>>
+      url: <<parameters.url>>
