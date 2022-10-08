@@ -11,11 +11,7 @@ parameters:
   project:
     type: string
     description: "The deployed project name"
-  url:
-    type: string
-    description: "The deployed project URL"
 steps:
   - on-hold:
       environment: <<parameters.environment>>
       project: <<parameters.project>>
-      url: <<parameters.url>>
