@@ -8,17 +8,13 @@ parameters:
   project:
     type: string
     description: "The deployed project name"
-  url:
-    type: string
-    description: "The deployed project URL"
 steps:
   - run:
       name: Setup environment variables
       command: |
         echo 'export PARAM_PROJECT="<< parameters.project >>"' >> "$BASH_ENV"
         echo 'export PARAM_ENVIRONMENT="<< parameters.environment >>"' >> "$BASH_ENV"
-        echo 'export PARAM_URL="<< parameters.url >>"' >> "$BASH_ENV"
-        echo 'export PARAM_VERSION="$(echo "$CIRCLE_TAG" | grep -o 'v[0-9]\+.[0-9]\+.[0-9]\+')"' >> "$BASH_ENV"
+        echo "export PARAM_VERSION="$(echo "$CIRCLE_TAG" | grep -o 'v[0-9]\+.[0-9]\+.[0-9]\+')"" >> "$BASH_ENV"
   - slack/notify:
       event: always
       custom: << include(slack-templates/approval.json) >>

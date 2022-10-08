@@ -27,12 +27,7 @@
 					"type": "mrkdwn",
 					"text": "*When*: $(date +'%m/%d/%Y %T')"
 				}
-			],
-			"accessory": {
-				"type": "image",
-				"image_url": "https://syneki.s3.eu-west-3.amazonaws.com/logo/curve.png",
-				"alt_text": "Syneki logo"
-			}
+			]
 		},
 		{
 			"type": "actions",
