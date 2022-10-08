@@ -28,7 +28,10 @@ steps:
         PARAM_URL: << parameters.url >>
         PARAM_PROJECT: << parameters.project >>
         PARAM_ENVIRONMENT: << parameters.environment >>
-      command: << include(scripts/setup-deploy-env.sh) >>
+      command: |
+        echo 'export PARAM_PROJECT="$PARAM_PROJECT"' >> "$BASH_ENV"
+        echo 'export PARAM_ENVIRONMENT="$PARAM_ENVIRONMENT"' >> "$BASH_ENV"
+        echo 'export PARAM_URL="$PARAM_URL"' >> "$BASH_ENV"
   - pulumi/login
   - run:
       name: Set image version
