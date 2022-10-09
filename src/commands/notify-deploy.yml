@@ -2,12 +2,6 @@ description: >
   This command login to Pulumi, update a stack, and send a Slack Notification.
 
 parameters:
-  working_directory:
-    type: string
-    description: "Directory where the Pulumi project is located"
-  organization:
-    type: string
-    description: "The Pulumi Organization name (<organization>/<environment>)"
   environment:
     type: string
     description: "The Pulumi Stack name (<organization>/<environment>)"
@@ -17,10 +11,6 @@ parameters:
   url:
     type: string
     description: "The deployed project URL"
-  version_path:
-    type: string
-    description: "Config path to set the image version"
-    default: config.app.version
 steps:
   - run:
       name: Setup environment variables
@@ -29,18 +19,6 @@ steps:
         echo 'export PARAM_ENVIRONMENT="<< parameters.environment >>"' >> "$BASH_ENV"
         echo 'export PARAM_URL="<< parameters.url >>"' >> "$BASH_ENV"
         echo "export PARAM_VERSION="$(echo "$CIRCLE_TAG" | grep -o 'v[0-9]\+.[0-9]\+.[0-9]\+')"" >> "$BASH_ENV"
-  - pulumi/login
-  - run:
-      name: Set image version
-      command: >-
-        pulumi config set
-        --stack << parameters.organization >>/<< parameters.environment >>
-        --cwd << parameters.working_directory >>
-        --path '<< parameters.version_path >>'
-        $(echo "$CIRCLE_TAG" | grep -o '[0-9]\+.[0-9]\+.[0-9]\+')
-  - pulumi/update:
-      stack: << parameters.organization >>/<< parameters.environment >>
-      working_directory: << parameters.working_directory >>
   - slack/notify:
       event: pass
       custom: << include(slack-templates/deploy.json) >>
