@@ -1,0 +1,12 @@
+description: >
+  Sample description
+# What will this job do?
+
+executor: default
+
+parameters:
+  version:
+    type: string
+    default: 4.7.0.2747
+steps:
+  - checkout
